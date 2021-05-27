@@ -15,10 +15,21 @@ function ToDoList() {
 
     };
 
+    const updateTodo = (todoId, newValue) => {
+        //So we dont just add a space.
+        if(!newValue.text || /^\s*$/.test(newValue.text)){
+            return;
+        }
+
+        setTodos(prev => prev.map(item=> item.id === todoId ? newValue :item))
+    }
+
+
     const removeTodo = (id) => {
         const removeArr = [...todos].filter(todo=> todo.id !== id)
         setTodos(removeArr);
     };
+
 
     const completeTodo = (id) => {
         let updateTodos = todos.map(todo => {
@@ -38,6 +49,8 @@ function ToDoList() {
                 todos={todos}
                 completeTodo={completeTodo}
                 removeTodo={removeTodo}
+                updateTodo = {updateTodo}
+
             />
         </div>
     )
